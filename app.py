@@ -1,10 +1,12 @@
 from flask import Flask, request, render_template, send_file
 from rembg import remove
 from PIL import Image
-import io
 import os
+from flask_frozen import Freezer
 
 app = Flask(__name__)
+freezer = Freezer(app)
+
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
 # Pastikan folder upload ada
@@ -35,4 +37,6 @@ def download_file(filename):
     return send_file(os.path.join(app.config['UPLOAD_FOLDER'], filename), as_attachment=True)
 
 if __name__ == '__main__':
+    # Untuk build static files
+    freezer.freeze()  # Ini akan membuat file statis
     app.run(debug=True)

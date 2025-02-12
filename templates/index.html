@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Remover</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Background Remover</h1>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Remove Background</button>
+    </form>
+
+    {% if original_image and modified_image %}
+        <h2>Original Image</h2>
+        <img src="{{ url_for('static', filename='uploads/' + original_image) }}" alt="Original Image">
+        <h2>Modified Image</h2>
+        <img src="{{ url_for('static', filename='uploads/' + modified_image) }}" alt="Modified Image">
+        <a href="{{ url_for('download_file', filename=modified_image) }}" class="btn">Download Modified Image</a>
+    {% endif %}
+</body>
+</html>
